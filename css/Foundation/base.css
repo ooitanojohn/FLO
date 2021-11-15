@@ -1,0 +1,11 @@
+@charset "utf-8";
+
+body{
+    height: 100vh;
+}
+footer{
+    height: 10%;
+}
+*{
+    border: 1px solid #AEAEAE;
+}

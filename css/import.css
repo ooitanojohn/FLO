@@ -1,0 +1,13 @@
+@charset "utf-8";
+/* サイト全体のデフォルトスタイルを管理 */
+@import url("Foundation/destyle.css");
+@import url("Foundation/base.css");
+/* 各ページを構成するサイト全体で共通したエリアを管理 */
+@import url("Layout/l-aside.css");
+@import url("Layout/l-header.css");
+@import url("Layout/l-main.css");
+@import url("Layout/l-footer.css");
+/* サイト全体で再利用出来るパターンを持つモジュールを管理 */
+
+/* 小さな単位のモジュールを管理(ボタンなど) */
+@import url("Object/Compornent/c-flex.css");

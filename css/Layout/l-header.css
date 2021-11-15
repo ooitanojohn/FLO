@@ -1,0 +1,19 @@
+@charset "utf-8";
+/* スマホ */
+header{
+    height: 10%;
+    width: calc(100% - 50px)
+}
+/* タブレット */
+@media screen and (min-width:768px){
+    header{
+        width: calc(100% - 100px);
+    }
+}
+/* PC */
+@media screen and (min-width:990px) {
+    header{
+        width: calc(100% - 150px);
+    }
+}
+

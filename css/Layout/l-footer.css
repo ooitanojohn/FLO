@@ -1,0 +1,27 @@
+@charset "utf-8";
+/* スマホ */
+footer{
+    height: 10%;
+    width: calc(100% - 50px)
+}
+
+/* タブレット */
+@media screen and (min-width:768px){
+    footer{
+        width: calc(100% - 100px);
+    }
+}
+/* PC */
+@media screen and (min-width:990px) {
+    footer{
+        width: calc(100% - 150px);
+    }
+    f-nav{
+    width: calc(100% - 100px);
+    margin-left: 100px;
+}
+}
+f-nav{
+    width: calc(100% - 50px);
+    margin-left: 50px;
+}
