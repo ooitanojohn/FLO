@@ -1,0 +1,7 @@
+@charset "utf-8";
+
+/* hoverで上にトランジッション */
+.c-transform-bottom:hover{
+    transform: translate(0px,2px);
+    transition: 0.2s;
+}

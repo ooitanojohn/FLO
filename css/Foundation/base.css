@@ -3,9 +3,7 @@
 body{
     height: 100vh;
 }
-footer{
-    height: 10%;
-}
 *{
-    border: 1px solid #AEAEAE;
+    color: #3a302d;
+    /* border: solid 1px grey ; */
 }

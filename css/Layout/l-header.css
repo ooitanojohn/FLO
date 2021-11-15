@@ -2,7 +2,8 @@
 /* スマホ */
 header{
     height: 10%;
-    width: calc(100% - 50px)
+    width: calc(100% - 50px);
+    padding: 30px;
 }
 /* タブレット */
 @media screen and (min-width:768px){

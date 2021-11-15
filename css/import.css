@@ -7,7 +7,15 @@
 @import url("Layout/l-header.css");
 @import url("Layout/l-main.css");
 @import url("Layout/l-footer.css");
+@import url("Layout/l-container.css");
 /* サイト全体で再利用出来るパターンを持つモジュールを管理 */
 
+/* いくつかのComponentと、他の要素によって構成される大きな単位のモジュールを管理 */
+@import url("Object/Project/p-header-title.css");
+@import url("Object/Project/p-footer-nav.css");
 /* 小さな単位のモジュールを管理(ボタンなど) */
 @import url("Object/Compornent/c-flex.css");
+@import url("Object/Compornent/c-text.css");
+@import url("Object/Compornent/c-textLink.css");
+@import url("Object/Compornent/c-input-text.css");
+@import url("Object/Compornent/c-transform.css");

@@ -9,12 +9,13 @@ if (isset($_COOKIE['id'])) {
     if (isset($_POST['logout'])) {
         setcookie('id', '', time(), -100);
         header('Location:index.php');
+        exit;
     }
     //********************* 設定 **************************
     // *** page内の配列要素数 ***
     $show = 5;
     //********************* 初期化 **************************
-    // *** pagelink初期化 ***
+    // *** pageLink初期化 ***
     $top = '';
     $last = '';
     // table index初期化
@@ -37,20 +38,20 @@ if (isset($_COOKIE['id'])) {
         exit('DB接続エラー:' . $err->getMessage());
     }
     //********************* pageaer **************************
-    // 現在のページ番号
+    // 現在のページ番号と表示する要素の番号
     if (isset($_GET['page'])) {
         $nowPage = $_GET['page'];
         $nowPageElement = $nowPage * $show;
     } else {
-        // page 初期化
+        // 最初のページ
         $nowPage = 0;
         $nowPageElement = 0;
     }
-    //********************* 表示する要素 **************************
+    //********************* 表示する要素の条件 **************************
     //********************* 検索値あり(sql文準備),なし,初回(sql文準備) **************************
-    // 何か受け取った
+    //  検索ボタン押下 || cookieに検索値あり
     if (isset($_POST['search']) || isset($_COOKIE['search'])) {
-        // 空文字
+        // ボタン押していてかつ空文字
         if (isset($_POST['search']) && $_POST['title'] == '') {
             $nowPageElement = [
                 []
@@ -81,7 +82,7 @@ if (isset($_COOKIE['id'])) {
             setcookie("search", $title);
         }
     }
-    // 初回
+    // 全表示
     else {
         $title = '';
         $sql = "SELECT * FROM m_book
@@ -92,14 +93,13 @@ if (isset($_COOKIE['id'])) {
         $data = $link->prepare($sql);
         $sqlExe = true;
     }
-
     //********************* sql文ありの場合 クエリ実行 **************************
     if ($sqlExe === true) {
         $data->bindValue(':start', $nowPageElement, PDO::PARAM_INT);
         $data->bindValue(':num', $show, PDO::PARAM_INT);
         // クエリ実行
         $data->execute();
-        $nowPageElement = $data->fetchall(PDO::FETCH_NAMED);
+        $nowPageElement = $data->fetchAll(PDO::FETCH_NAMED);
         // *** 現在のページの要素 ***
         foreach ($nowPageElement as $key => $val) {
             unset($nowPageElement[$key]['id']);
@@ -107,7 +107,7 @@ if (isset($_COOKIE['id'])) {
         }
 
         //********************* 下部リンクの為の最大ページ数 **************************
-        //検索値あり || 初回 でsql文割り振り
+        //検索値あり || 全検索でsql文割り振り
         if ($sqlSearch === true) {
             $sql = "SELECT count(*) FROM m_book
         WHERE del_date IS NULL AND title LIKE :postTitle";
