@@ -18,3 +18,12 @@
 .c-flex-wrap{
     flex-wrap: wrap;
 }
+.c-flex-basis_50{
+    flex-basis: 50%;
+}
+.c-flex-basis_33{
+    flex-basis: 33%;
+}
+.c-flex-basis_25{
+    flex-basis: 25%;
+}

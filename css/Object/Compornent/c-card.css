@@ -1,0 +1,8 @@
+.c-card li p{
+    height: 350px;
+    width: 400px;
+    border: solid 1px #3a302d;
+    /* line-height: 350px;
+    font-size: 36px; */
+}
+

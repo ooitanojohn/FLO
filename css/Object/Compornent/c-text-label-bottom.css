@@ -1,0 +1,30 @@
+@charset "utf-8";
+/*
+<a href="#" class="c-label-bottom-hover">
+    <span class=".c-label-bottom-text">下線アニメーション</span>
+</a> */
+/*  */
+.c-label-bottom-hover{
+  text-decoration: none;
+  color: #3a302d;
+  /* font-size: 24px; */
+}
+/*  */
+.c-label-bottom-text{
+  position: relative;
+  z-index: 1;
+}
+.c-label-bottom-text:after{
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -10px;/*テキストからの距離*/
+  width: 0%;/*初期状態では下線非表示*/
+  height: 2px;/*下線の高さ*/
+  background: #3a302d;/*下線の色*/
+  z-index: -1;
+  transition: all 0.4s;/*アニメーション速度*/
+}
+.c-label-bottom-hover:hover .c-label-bottom-text:after{
+  width: 100%;/*hover時に表示*/
+}

@@ -34,7 +34,7 @@ if (isset($_POST['submit'])) {
         die('DB接続エラー:' . $err->getMessage());
     }
     // *** SQLインジェクション対策***
-    $sql = "SELECT id,password,password_str,password_cnt FROM m_member WHERE login_id = :login_id";
+    $sql = "SELECT id,name,password,password_str,password_cnt FROM m_member WHERE login_id = :login_id";
     $pdo = $link->prepare($sql);
     $pdo->bindValue(':login_id', $login_id, PDO::PARAM_STR);
     // *** SQL実行 ***
@@ -46,6 +46,7 @@ if (isset($_POST['submit'])) {
         if ($userData['password'] === passwordReHash($password, $userData['password_str'], $userData['password_cnt'])) {
             session_start();
             setcookie('id', $userData['id']);
+            $_SESSION['name'] = $userData['name'];
             header('Location:login.php');
             exit;
         }
