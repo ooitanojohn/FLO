@@ -1,0 +1,34 @@
+/* エラー用ボタン */
+.c-error-button{
+    border: 1px solid #3a302d;
+    border-radius: 100px;
+    padding: 10px 50px;
+    width: 200px;
+}
+.c-error-button:hover{
+    transform: translate(0px,4px);
+    transition: 0.2s;
+}
+/* complete用 */
+.c-complete-button{
+    border: 1px solid #3a302d;
+    border-radius: 100px;
+    padding: 10px 50px;
+    width: 250px;
+}
+.c-complete-button:hover{
+    transform: translate(0px,4px);
+    transition: 0.2s;
+}
+
+/* 登録 */
+.c-entry-button{
+    border: 1px solid #3a302d;
+    border-radius: 100px;
+    padding: 10px 50px;
+    /* width: 100px; */
+}
+.c-entry-button:hover{
+    transform: translate(0px,4px);
+    transition: 0.2s;
+}

@@ -1,4 +1,5 @@
 <?php
+require_once 'model/escape/escape.php';
 ///********************************************************
 // paging
 //********************************************************
@@ -8,19 +9,23 @@ if (isset($_COOKIE['id'])) {
     //********************* ログアウト処理 **************************
     if (isset($_POST['logout'])) {
         setcookie('id', '', time(), -100);
+        unset($_SESSION['name']);
         header('Location:index.php');
+        exit;
     }
     //********************* 設定 **************************
     // *** page内の配列要素数 ***
     $show = 5;
     //********************* 初期化 **************************
-    // *** pagelink初期化 ***
+    // *** pageLink初期化 ***
     $top = '';
     $last = '';
     // table index初期化
     $tableIndex = [
         'タイトル', '巻数', '値段', '発売日', '購入日'
     ];
+    $search_none = '';
+    $display_none = '';
     // 検索時の max 初期化
     $sqlSearch = false;
     //********************* sql接続 **************************
@@ -37,23 +42,42 @@ if (isset($_COOKIE['id'])) {
         exit('DB接続エラー:' . $err->getMessage());
     }
     //********************* pageaer **************************
-    // 現在のページ番号
+    // 現在のページ番号と表示する要素の番号
     if (isset($_GET['page'])) {
         $nowPage = $_GET['page'];
         $nowPageElement = $nowPage * $show;
     } else {
-        // page 初期化
+        // 最初のページ
         $nowPage = 0;
         $nowPageElement = 0;
     }
-    //********************* 表示する要素 **************************
+    //********************* 表示する要素の条件 **************************
     //********************* 検索値あり(sql文準備),なし,初回(sql文準備) **************************
-    // 何か受け取った
-    if (isset($_POST['search']) || isset($_COOKIE['search'])) {
-        // 空文字
+    if (isset($_POST['reset'])) {
+        // 検索値 cookieに 前の値がある場合削除
+        setcookie("search", "", time() - 100);
+        $title = '';
+        $sql = "SELECT * FROM m_book
+    WHERE del_date IS NULL
+    ORDER BY purchase_date DESC
+    LIMIT :start,:num";
+        // sqlインジェクション
+        $data = $link->prepare($sql);
+        $sqlExe = true;
+    }
+    //  検索ボタン押下 || cookieに検索値あり
+    elseif (isset($_POST['search']) || isset($_COOKIE['search'])) {
+        // ボタン押していてかつ空文字
         if (isset($_POST['search']) && $_POST['title'] == '') {
+            // 検索 element初期化
             $nowPageElement = [
-                []
+                [
+                    'title' => '',
+                    'volume' => '',
+                    'price' => '',
+                    'release_date' => '',
+                    'purchase_date' => ''
+                ]
             ];
             setcookie("search", "", time() - 100);
             $title = '';
@@ -81,7 +105,7 @@ if (isset($_COOKIE['id'])) {
             setcookie("search", $title);
         }
     }
-    // 初回
+    // 全表示
     else {
         $title = '';
         $sql = "SELECT * FROM m_book
@@ -92,14 +116,13 @@ if (isset($_COOKIE['id'])) {
         $data = $link->prepare($sql);
         $sqlExe = true;
     }
-
     //********************* sql文ありの場合 クエリ実行 **************************
     if ($sqlExe === true) {
         $data->bindValue(':start', $nowPageElement, PDO::PARAM_INT);
         $data->bindValue(':num', $show, PDO::PARAM_INT);
         // クエリ実行
         $data->execute();
-        $nowPageElement = $data->fetchall(PDO::FETCH_NAMED);
+        $nowPageElement = $data->fetchAll(PDO::FETCH_NAMED);
         // *** 現在のページの要素 ***
         foreach ($nowPageElement as $key => $val) {
             unset($nowPageElement[$key]['id']);
@@ -107,7 +130,7 @@ if (isset($_COOKIE['id'])) {
         }
 
         //********************* 下部リンクの為の最大ページ数 **************************
-        //検索値あり || 初回 でsql文割り振り
+        //検索値あり || 全検索でsql文割り振り
         if ($sqlSearch === true) {
             $sql = "SELECT count(*) FROM m_book
         WHERE del_date IS NULL AND title LIKE :postTitle";
@@ -124,9 +147,11 @@ if (isset($_COOKIE['id'])) {
     // a 検索値なし&&検索結果なし || b 検索値アリ,初回
     // a リンクを非表示
     if ($sqlExe === false || empty($nowPageElement[0])) {
-        $top = 'none';
-        $last = 'none';
-        $pageLinkNum[] = 'none';
+        $top = 'p-link_none';
+        $last = 'p-link_none';
+        $pageLinkNum[] = 'p-link_none';
+        $display_none = 'u-display_none';
+        $search_none = 'u-search_none';
     }
     // b リンクを表示
     else {
@@ -138,16 +163,16 @@ if (isset($_COOKIE['id'])) {
         }
         // *** 最初のページ ***
         if ($nowPage == 0) {
-            $top = 'none';
+            $top = 'p-link_none';
         }
         // *** 最後のページ ***
         if ($nowPage == $maxPage) {
-            $last = 'none';
+            $last = 'p-link_none';
         }
         // *** 現在のページ ***
         for ($i = 0; $i < $maxPage + 1; $i++) {
             if ($i  == $nowPage) {
-                $pageLinkNum[] = 'none';
+                $pageLinkNum[] = 'p-link_none';
             } else {
                 $pageLinkNum[] = '';
             }
@@ -155,7 +180,7 @@ if (isset($_COOKIE['id'])) {
     }
     require_once 'view/index.php';
 
-    // DB接続子 停止
+    // DB接続子 停止 メモリ解放
     $link = NULL;
 } else {
     // *** ログインしていなければentry.phpへ ***

@@ -40,7 +40,7 @@ if (isset($_POST['submit'])) {
         $data->bindValue(':password_cnt', $password_cnt, PDO::PARAM_INT);
         $data->execute();
         // *** complete.phpへ遷移 ***
-        header('Location:view/complete.php');
+        header('Location:complete.php');
         exit;
     }
 }

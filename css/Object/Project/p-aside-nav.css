@@ -1,0 +1,23 @@
+@charset "utf-8";
+/* リンク大きさ */
+aside ul li {
+    height: 40px;
+    width: 100px;
+    text-align: center;
+}
+/* ハンバーガーメニュー */
+#aside-nav svg {
+    margin-top: 10px;
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+    padding: 12px;
+    background-color: #3a302d;
+}
+aside ul li:nth-child(1){
+    height: 100px;
+}
+/* リンクテキスト */
+aside ul li span{
+    display: block;
+}

@@ -1,8 +1,10 @@
 @charset "utf-8";
 /* スマホ */
 header{
-    height: 10%;
-    width: calc(100% - 50px)
+    /* height: 10%; */
+    width: calc(100% - 50px);
+    padding: 30px;
+    /* position: fixed; */
 }
 /* タブレット */
 @media screen and (min-width:768px){

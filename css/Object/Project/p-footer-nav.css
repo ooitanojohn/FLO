@@ -1,0 +1,22 @@
+@charset "utf-8";
+/* ナビレイアウト */
+.p-footer-nav{
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.p-footer-nav li{
+    font-size: 20px;
+    margin: 0 15px;
+    letter-spacing: 0.1em;
+    font-weight: 200;
+}
+/* PC */
+@media screen and (min-width:990px) {
+    .p-footer-nav{
+
+}
+}
+
+

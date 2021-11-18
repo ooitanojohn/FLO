@@ -2,11 +2,11 @@
 
 /* スマホ */
 main{
-    height: 80vh;
-    width: calc(100% - 50px)
+    /* min-height: 80vh; */
+    width: calc(100% - 50px);
 }
 article{
-    height:80vh;
+    /* height:80vh; */
     width: calc(100% - 50px);
     margin-left: 50px;
 }

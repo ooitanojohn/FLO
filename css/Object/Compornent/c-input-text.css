@@ -1,0 +1,24 @@
+@charset "utf-8";
+
+/* テキストボックス */
+/* 検索用 */
+.c-input-type-text input{
+    /* border-bottom: solid 1px #3a302d; */
+    letter-spacing: 0.1em;
+    padding: 16px 0 12px 2px; /* この要素を調整 */
+    width: 240px;
+}
+.c-input-type-text{
+    border-bottom: solid 1px #3a302d;
+}
+
+/* 入力用 */
+.c-input-type-text-entry input{
+    /* border-bottom: solid 1px #3a302d; */
+    letter-spacing: 0.1em;
+    padding: 16px 0 12px 10px;
+    width: 240px;
+}
+.c-input-type-text-entry{
+    border-bottom: solid 1px #3a302d;
+}
