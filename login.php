@@ -53,6 +53,8 @@ if (isset($_POST['submit'])) {
     }
     // *** 失敗時 エラーメッセージ***
     $errCode = '101';
+    // メモリ解放
+    $link = NULL;
 }
 
 require_once 'view/login.php';

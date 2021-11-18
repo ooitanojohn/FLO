@@ -180,7 +180,7 @@ if (isset($_COOKIE['id'])) {
     }
     require_once 'view/index.php';
 
-    // DB接続子 停止
+    // DB接続子 停止 メモリ解放
     $link = NULL;
 } else {
     // *** ログインしていなければentry.phpへ ***
